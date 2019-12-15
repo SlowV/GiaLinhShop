@@ -105,9 +105,9 @@
             <!-- banner -->
             <div class="col-md-3 col-sm-6 col-xs-6">
                 <div class="banner banner-2">
-                    <img th:src="@{${collectionNew.images}}" alt="">
+                    <img src="./img/banner14.jpg" alt="">
                     <div class="banner-caption">
-                        <h2 class="white-color">NEW<br>Bộ sưu tập</h2>
+                        <h2 class="white-color">NEW<br>COLLECTION</h2>
                         <button class="primary-btn">Shop Now</button>
                     </div>
                 </div>
@@ -118,140 +118,66 @@
             <div class="col-md-9 col-sm-6 col-xs-6">
                 <div class="row">
                     <div id="product-slick-1" class="product-slick">
-                        <!-- Product Single -->
-                        <div class="product product-single">
-                            <div class="product-thumb">
-                                <div class="product-label">
-                                    <span>New</span>
-                                    <span class="sale">-20%</span>
-                                </div>
-                                <ul class="product-countdown">
-                                    <li><span>00 H</span></li>
-                                    <li><span>00 M</span></li>
-                                    <li><span>00 S</span></li>
-                                </ul>
-                                <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                                <img src="./img/product01.jpg" alt="">
-                            </div>
-                            <div class="product-body">
-                                <h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o empty"></i>
-                                </div>
-                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                <div class="product-btns">
-                                    <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                    <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-                                    <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /Product Single -->
+                        <th:block th:if="!${products.isEmpty()}">
+                            <th:block th:each="product : ${products}">
+                                <!-- Product Single -->
+                                <div class="product product-single product-custom-size">
+                                    <div class="product-thumb">
+                                        <div class="product-label">
+                                            <th:block th:if="${product.isNew()}">
+                                                <span>New</span>
+                                            </th:block>
+                                            <th:block th:if="${product.isSale()}">
+                                                <span class="sale" th:text=" '-' + ${product.perCent} + '%'"></span>
+                                            </th:block>
 
-                        <!-- Product Single -->
-                        <div class="product product-single">
-                            <div class="product-thumb">
-                                <div class="product-label">
-                                    <span class="sale">-20%</span>
+                                        </div>
+<!--                                        <ul class="product-countdown">-->
+<!--                                            <li><span>00 H</span></li>-->
+<!--                                            <li><span>00 M</span></li>-->
+<!--                                            <li><span>00 S</span></li>-->
+<!--                                        </ul>-->
+                                        <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Xem nhanh</button>
+                                        <img th:src="${product.images.split(',')[0]}" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <th:block th:if="${product.isSale()}">
+                                                    <h3 class="product-price" th:title="${#numbers.formatDecimal(product.unitPrice - (product.unitPrice * (product.perCent / 100.0)), 0, 'COMMA', 0, 'POINT')} + ' vnđ'">
+                                                        <span  th:text="${#numbers.formatDecimal(product.unitPrice - (product.unitPrice * (product.perCent / 100.0)), 0, 'COMMA', 0, 'POINT')} + ' vnđ' "></span>
+                                                        <del th:class="'product-old-price'" th:text="${product.unitPrice} + ' vnđ'"></del>
+                                                    </h3>
+                                                </th:block>
+                                                <th:block th:if="!${product.isSale()}">
+                                                    <h3 class="product-price" th:title="${{#numbers.formatDecimal(product.unitPrice, 0, 'COMMA', 0, 'POINT')}} + ' vnđ' ">
+                                                        <span  th:text="${{#numbers.formatDecimal(product.unitPrice, 0, 'COMMA', 0, 'POINT')}} + ' vnđ' "></span>
+                                                    </h3>
+                                                </th:block>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="product-rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o empty"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <h2 class="product-name"><a href="#" th:text="${product.name}"></a></h2>
+                                        <div class="product-btns">
+                                            <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+                                            <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+                                            <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ</button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <ul class="product-countdown">
-                                    <li><span>00 H</span></li>
-                                    <li><span>00 M</span></li>
-                                    <li><span>00 S</span></li>
-                                </ul>
-                                <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                                <img src="./img/product07.jpg" alt="">
-                            </div>
-                            <div class="product-body">
-                                <h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o empty"></i>
-                                </div>
-                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                <div class="product-btns">
-                                    <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                    <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-                                    <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /Product Single -->
-
-                        <!-- Product Single -->
-                        <div class="product product-single">
-                            <div class="product-thumb">
-                                <div class="product-label">
-                                    <span>New</span>
-                                    <span class="sale">-20%</span>
-                                </div>
-                                <ul class="product-countdown">
-                                    <li><span>00 H</span></li>
-                                    <li><span>00 M</span></li>
-                                    <li><span>00 S</span></li>
-                                </ul>
-                                <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                                <img src="./img/product06.jpg" alt="">
-                            </div>
-                            <div class="product-body">
-                                <h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o empty"></i>
-                                </div>
-                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                <div class="product-btns">
-                                    <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                    <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-                                    <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /Product Single -->
-
-                        <!-- Product Single -->
-                        <div class="product product-single">
-                            <div class="product-thumb">
-                                <div class="product-label">
-                                    <span>New</span>
-                                    <span class="sale">-20%</span>
-                                </div>
-                                <ul class="product-countdown">
-                                    <li><span>00 H</span></li>
-                                    <li><span>00 M</span></li>
-                                    <li><span>00 S</span></li>
-                                </ul>
-                                <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                                <img src="./img/product08.jpg" alt="">
-                            </div>
-                            <div class="product-body">
-                                <h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
-                                <div class="product-rating">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star-o empty"></i>
-                                </div>
-                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                <div class="product-btns">
-                                    <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                    <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-                                    <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /Product Single -->
+                                <!-- /Product Single -->
+                            </th:block>
+                        </th:block>
                     </div>
                 </div>
             </div>

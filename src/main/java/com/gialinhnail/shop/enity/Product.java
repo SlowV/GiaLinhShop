@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -72,6 +73,17 @@ public class Product {
         this.category = category;
         this.collection = collection;
         this.isSlide = isSlide;
+    }
+
+    public boolean isNew(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DATE, 7);
+        return this.createdAt < calendar.getTimeInMillis();
+    }
+
+    public double getPriceDiscount(){
+        return this.unitPrice - (this.unitPrice * ( this.perCent / 100.0));
     }
 
     enum Status {

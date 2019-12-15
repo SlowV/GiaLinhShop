@@ -30,7 +30,7 @@ public class CollectionService {
         collectionRepository.saveAll(collections);
     }
 
-    public Collection findFirstByStatusAndOrderByCreatedAtDesc(int status){
-        return collectionRepository.findFirstByStatusAndOrderByCreatedAtDesc(status).orElse(null);
+    public Collection findOneByCreatedAtDesc(){
+        return collectionRepository.findTopByOrderByCreatedAtDesc();
     }
 }

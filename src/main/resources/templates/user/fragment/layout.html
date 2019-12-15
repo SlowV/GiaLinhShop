@@ -101,23 +101,25 @@
                                     <i class="fa fa-user-o"></i>
                                 </div>
                                 <th:block sec:authorize="isAuthenticated()">
-                                    <strong class="text-uppercase">Tài khoản <i class="fa fa-caret-down"></i></strong>
+                                    <strong class="text-uppercase">Tài khoản <i class="fa fa-caret-down" ></i></strong>
                                 </th:block>
                             </div>
                             <th:block sec:authorize="!isAuthenticated()">
-                                <a th:href="@{/account/login}" class="text-uppercase">Đăng nhập</a>
-                                <a th:href="@{/account/register}" class="text-uppercase">Đăng ký</a>
+                                <a th:href="@{/account/login}" class="text-uppercase d-block" >
+                                    <i class="fa fa-unlock-alt " style="margin-right: 5px; color: #F8694A"></i> Đăng nhập</a>
+                                <a th:href="@{/account/register}" class="text-uppercase d-block" >
+                                   <i class="fa fa-user-plus" style="margin-right: 5px; color: #F8694A"></i> Đăng ký
+                                </a>
                             </th:block>
-                            <th:block sec:authorize="isAuthenticated()">
-                                <ul class="custom-menu">
-                                    <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-                                    <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-                                    <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
-                                    <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
-                                    <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
-                                    <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
-                                </ul>
-                            </th:block>
+                            <ul class="custom-menu">
+                                <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+                                <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
+                                <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
+                                <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
+                                <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
+
+                                <!--                                    <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>-->
+                            </ul>
                         </li>
                         <!-- /Account -->
 

@@ -14,3 +14,56 @@
     background: #000;
     overflow: hidden;
 }
+
+.product-custom-size{
+    position: relative;
+    height: 440px;
+    border: 1px solid #f1f1f1;
+    overflow: hidden;
+}
+
+.product.product-single .product-body{
+    padding: 0 15px 15px 15px;
+}
+
+.product-custom-size img{
+    height: 200px;
+    object-fit: cover;
+}
+
+.product.product-single .product-rating {
+    text-align: center;
+    float: none;
+}
+
+.product-price {
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #464850;
+    font-weight: normal;
+}
+.product-name{
+    margin-top: 10px;
+}
+
+.product-custom-size .product-btns{
+    position: absolute;
+    height: auto;
+    width: 100%;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    margin: auto;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.d-block {
+    display: block;
+}
+
+.header-account {
+    min-width: 160px;
+}
