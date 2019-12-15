@@ -1,6 +1,4 @@
 package com.gialinhnail.shop.enity;
-
-import javafx.scene.control.TableColumn;
 import lombok.Data;
 
 import javax.persistence.*;
