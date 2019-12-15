@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <th:block th:fragment="HEAD">
         <meta charset="utf-8">
@@ -7,23 +8,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <!-- Google font -->
-        <link th:href="@{'https://fonts.googleapis.com/css?family=Hind:400,700'}" rel="stylesheet">
-
+        <link th:href="@{'https://fonts.googleapis.com/css?family=Dancing+Script|Montserrat:400,700&display=swap&subset=vietnamese'}"
+              rel="stylesheet">
+        <link rel="stylesheet"
+              th:href="@{'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css'}">
         <!-- Bootstrap -->
-        <link type="text/css" rel="stylesheet" th:href="@{~/css/bootstrap.min.css}" />
+        <link type="text/css" rel="stylesheet" th:href="@{~/css/bootstrap.min.css}"/>
 
         <!-- Slick -->
-        <link type="text/css" rel="stylesheet" th:href="@{~/css/slick.css}" />
-        <link type="text/css" rel="stylesheet" th:href="@{~/css/slick-theme.css}" />
+        <link type="text/css" rel="stylesheet" th:href="@{~/css/slick.css}"/>
+        <link type="text/css" rel="stylesheet" th:href="@{~/css/slick-theme.css}"/>
 
         <!-- nouislider -->
-        <link type="text/css" rel="stylesheet" th:href="@{~/css/nouislider.min.css:}" />
+        <link type="text/css" rel="stylesheet" th:href="@{~/css/slider.css}"/>
 
         <!-- Font Awesome Icon -->
-        <link rel="stylesheet" th:href="@{~/css/font-awesome.min.css}">
+        <link th:href="@{~/css/font-awesome.min.css}">
 
         <!-- Custom stlylesheet -->
         <link type="text/css" rel="stylesheet" th:href="@{~/css/style.css}"/>
+        <link type="text/css" rel="stylesheet" th:href="@{~/css/customCss.css}"/>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,34 +40,23 @@
 </head>
 <body>
 
-<th:block th:fragment="HEADER">
+<th:block th:fragment="HEADER(categories)">
     <!-- HEADER -->
     <header>
         <!-- top Header -->
         <div id="top-header">
             <div class="container">
                 <div class="pull-left">
-                    <span>Welcome to E-shop!</span>
+                    <span style="font-family: 'Dancing Script', cursive">Welcome to Gia Linh shop!</span>
                 </div>
                 <div class="pull-right">
                     <ul class="header-top-links">
-                        <li><a href="#">Store</a></li>
-                        <li><a href="#">Newsletter</a></li>
-                        <li><a href="#">FAQ</a></li>
                         <li class="dropdown default-dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">ENG <i class="fa fa-caret-down"></i></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                <i class="fa fa-language mr-2"></i> VI <i class="fa fa-caret-down"></i></a>
                             <ul class="custom-menu">
                                 <li><a href="#">English (ENG)</a></li>
-                                <li><a href="#">Russian (Ru)</a></li>
-                                <li><a href="#">French (FR)</a></li>
-                                <li><a href="#">Spanish (Es)</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown default-dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">USD <i class="fa fa-caret-down"></i></a>
-                            <ul class="custom-menu">
-                                <li><a href="#">USD ($)</a></li>
-                                <li><a href="#">EUR (€)</a></li>
+                                <li><a href="#">Vietnamese (VI)</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -87,11 +80,12 @@
                     <!-- Search -->
                     <div class="header-search">
                         <form>
-                            <input class="input search-input" type="text" placeholder="Enter your keyword">
+                            <input class="input search-input" type="text" placeholder="Nhập từ khóa">
                             <select class="input search-categories">
-                                <option value="0">All Categories</option>
-                                <option value="1">Category 01</option>
-                                <option value="1">Category 02</option>
+                                <option value="0" selected>Tất cả</option>
+                                <th:block th:each="(category : ${categories})">
+                                    <option th:value="${category.id}" th:text="${category.name}"></option>
+                                </th:block>
                             </select>
                             <button class="search-btn"><i class="fa fa-search"></i></button>
                         </form>
@@ -106,17 +100,24 @@
                                 <div class="header-btns-icon">
                                     <i class="fa fa-user-o"></i>
                                 </div>
-                                <strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
+                                <th:block sec:authorize="isAuthenticated()">
+                                    <strong class="text-uppercase">Tài khoản <i class="fa fa-caret-down"></i></strong>
+                                </th:block>
                             </div>
-                            <a href="#" class="text-uppercase">Login</a> / <a href="#" class="text-uppercase">Join</a>
-                            <ul class="custom-menu">
-                                <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-                                <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-                                <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
-                                <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
-                                <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
-                                <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
-                            </ul>
+                            <th:block sec:authorize="!isAuthenticated()">
+                                <a th:href="@{/account/login}" class="text-uppercase">Đăng nhập</a>
+                                <a th:href="@{/account/register}" class="text-uppercase">Đăng ký</a>
+                            </th:block>
+                            <th:block sec:authorize="isAuthenticated()">
+                                <ul class="custom-menu">
+                                    <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+                                    <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
+                                    <li><a href="#"><i class="fa fa-exchange"></i> Compare</a></li>
+                                    <li><a href="#"><i class="fa fa-check"></i> Checkout</a></li>
+                                    <li><a href="#"><i class="fa fa-unlock-alt"></i> Login</a></li>
+                                    <li><a href="#"><i class="fa fa-user-plus"></i> Create An Account</a></li>
+                                </ul>
+                            </th:block>
                         </li>
                         <!-- /Account -->
 
@@ -127,7 +128,7 @@
                                     <i class="fa fa-shopping-cart"></i>
                                     <span class="qty">3</span>
                                 </div>
-                                <strong class="text-uppercase">My Cart:</strong>
+                                <strong class="text-uppercase">Giỏ hàng:</strong>
                                 <br>
                                 <span>35.20$</span>
                             </a>
@@ -157,7 +158,8 @@
                                     </div>
                                     <div class="shopping-cart-btns">
                                         <button class="main-btn">View Cart</button>
-                                        <button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
+                                        <button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -187,10 +189,11 @@
             <div id="responsive-nav">
                 <!-- category nav -->
                 <div class="category-nav">
-                    <span class="category-header">Categories <i class="fa fa-list"></i></span>
+                    <span class="category-header">Danh mục <i class="fa fa-list"></i></span>
                     <ul class="category-list">
                         <li class="dropdown side-dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Women’s Clothing <i class="fa fa-angle-right"></i></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Women’s Clothing <i
+                                    class="fa fa-angle-right"></i></a>
                             <div class="custom-menu">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -244,7 +247,9 @@
                             </div>
                         </li>
                         <li><a href="#">Men’s Clothing</a></li>
-                        <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Phones & Accessories <i class="fa fa-angle-right"></i></a>
+                        <li class="dropdown side-dropdown"><a class="dropdown-toggle" data-toggle="dropdown"
+                                                              aria-expanded="true">Phones & Accessories <i
+                                class="fa fa-angle-right"></i></a>
                             <div class="custom-menu">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -304,7 +309,8 @@
                         <li><a href="#">Computer & Office</a></li>
                         <li><a href="#">Consumer Electronics</a></li>
                         <li class="dropdown side-dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Jewelry & Watches <i class="fa fa-angle-right"></i></a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Jewelry & Watches <i
+                                    class="fa fa-angle-right"></i></a>
                             <div class="custom-menu">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -385,156 +391,43 @@
                 <div class="menu-nav">
                     <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
                     <ul class="menu-list">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Shop</a></li>
-                        <li class="dropdown mega-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Women <i class="fa fa-caret-down"></i></a>
+                        <li><a th:href="@{/}">Trang chủ</a></li>
+                        <li><a th:href="@{/products}">Shop</a></li>
+                        <li class="dropdown mega-dropdown full-width">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Danh mục <i
+                                    class="fa fa-caret-down"></i></a>
                             <div class="custom-menu">
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <ul class="list-links">
-                                            <li>
-                                                <h3 class="list-links-title">Categories</h3></li>
-                                            <li><a href="#">Women’s Clothing</a></li>
-                                            <li><a href="#">Men’s Clothing</a></li>
-                                            <li><a href="#">Phones & Accessories</a></li>
-                                            <li><a href="#">Jewelry & Watches</a></li>
-                                            <li><a href="#">Bags & Shoes</a></li>
-                                        </ul>
-                                        <hr class="hidden-md hidden-lg">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="list-links">
-                                            <li>
-                                                <h3 class="list-links-title">Categories</h3></li>
-                                            <li><a href="#">Women’s Clothing</a></li>
-                                            <li><a href="#">Men’s Clothing</a></li>
-                                            <li><a href="#">Phones & Accessories</a></li>
-                                            <li><a href="#">Jewelry & Watches</a></li>
-                                            <li><a href="#">Bags & Shoes</a></li>
-                                        </ul>
-                                        <hr class="hidden-md hidden-lg">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul class="list-links">
-                                            <li>
-                                                <h3 class="list-links-title">Categories</h3></li>
-                                            <li><a href="#">Women’s Clothing</a></li>
-                                            <li><a href="#">Men’s Clothing</a></li>
-                                            <li><a href="#">Phones & Accessories</a></li>
-                                            <li><a href="#">Jewelry & Watches</a></li>
-                                            <li><a href="#">Bags & Shoes</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="row hidden-sm hidden-xs">
-                                    <div class="col-md-12">
-                                        <hr>
-                                        <a class="banner banner-1" href="#">
-                                            <img src="./img/banner05.jpg" alt="">
-                                            <div class="banner-caption text-center">
-                                                <h2 class="white-color">NEW COLLECTION</h2>
-                                                <h3 class="white-color font-weak">HOT DEAL</h3>
+                                    <!--/*@thymesVar id="categories" type="List<com.gialinhnail.shop.enity.Category>"*/-->
+                                    <th:block th:each="category : ${categories}">
+                                        <th:block th:if="${category.parent == null}">
+                                            <div class="col-md-3">
+                                                <div class="hidden-sm hidden-xs">
+
+                                                    <a class="banner banner-1" href="#">
+                                                        <img th:src="${category.images}" alt="" class="img-cate">
+                                                        <div class="banner-caption text-center">
+                                                            <h3 class="white-color text-uppercase"
+                                                                th:text="${category.name}"></h3>
+                                                        </div>
+                                                    </a>
+                                                    <hr>
+                                                </div>
+                                                <ul class="list-links">
+                                                    <th:block th:if="!${category.children.isEmpty()}">
+                                                        <li><h3 class="list-links-title" th:text="${category.name}"></h3></li>
+                                                        <th:block th:each="categoryChild : ${category.children}">
+                                                            <li><a href="#" th:text="${categoryChild.name}"></a></li>
+                                                        </th:block>
+                                                    </th:block>
+                                                </ul>
                                             </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="dropdown mega-dropdown full-width"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Men <i class="fa fa-caret-down"></i></a>
-                            <div class="custom-menu">
-                                <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="hidden-sm hidden-xs">
-                                            <a class="banner banner-1" href="#">
-                                                <img src="./img/banner06.jpg" alt="">
-                                                <div class="banner-caption text-center">
-                                                    <h3 class="white-color text-uppercase">Women’s</h3>
-                                                </div>
-                                            </a>
-                                            <hr>
-                                        </div>
-                                        <ul class="list-links">
-                                            <li>
-                                                <h3 class="list-links-title">Categories</h3></li>
-                                            <li><a href="#">Women’s Clothing</a></li>
-                                            <li><a href="#">Men’s Clothing</a></li>
-                                            <li><a href="#">Phones & Accessories</a></li>
-                                            <li><a href="#">Jewelry & Watches</a></li>
-                                            <li><a href="#">Bags & Shoes</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="hidden-sm hidden-xs">
-                                            <a class="banner banner-1" href="#">
-                                                <img src="./img/banner07.jpg" alt="">
-                                                <div class="banner-caption text-center">
-                                                    <h3 class="white-color text-uppercase">Men’s</h3>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <hr>
-                                        <ul class="list-links">
-                                            <li>
-                                                <h3 class="list-links-title">Categories</h3></li>
-                                            <li><a href="#">Women’s Clothing</a></li>
-                                            <li><a href="#">Men’s Clothing</a></li>
-                                            <li><a href="#">Phones & Accessories</a></li>
-                                            <li><a href="#">Jewelry & Watches</a></li>
-                                            <li><a href="#">Bags & Shoes</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="hidden-sm hidden-xs">
-                                            <a class="banner banner-1" href="#">
-                                                <img src="./img/banner08.jpg" alt="">
-                                                <div class="banner-caption text-center">
-                                                    <h3 class="white-color text-uppercase">Accessories</h3>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <hr>
-                                        <ul class="list-links">
-                                            <li>
-                                                <h3 class="list-links-title">Categories</h3></li>
-                                            <li><a href="#">Women’s Clothing</a></li>
-                                            <li><a href="#">Men’s Clothing</a></li>
-                                            <li><a href="#">Phones & Accessories</a></li>
-                                            <li><a href="#">Jewelry & Watches</a></li>
-                                            <li><a href="#">Bags & Shoes</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="hidden-sm hidden-xs">
-                                            <a class="banner banner-1" href="#">
-                                                <img src="./img/banner09.jpg" alt="">
-                                                <div class="banner-caption text-center">
-                                                    <h3 class="white-color text-uppercase">Bags</h3>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <hr>
-                                        <ul class="list-links">
-                                            <li>
-                                                <h3 class="list-links-title">Categories</h3></li>
-                                            <li><a href="#">Women’s Clothing</a></li>
-                                            <li><a href="#">Men’s Clothing</a></li>
-                                            <li><a href="#">Phones & Accessories</a></li>
-                                            <li><a href="#">Jewelry & Watches</a></li>
-                                            <li><a href="#">Bags & Shoes</a></li>
-                                        </ul>
-                                    </div>
+                                        </th:block>
+                                    </th:block>
                                 </div>
                             </div>
                         </li>
                         <li><a href="#">Sales</a></li>
-                        <li class="dropdown default-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Pages <i class="fa fa-caret-down"></i></a>
-                            <ul class="custom-menu">
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="products.html">Products</a></li>
-                                <li><a href="product-page.html">Product Details</a></li>
-                                <li><a href="checkout.html">Checkout</a></li>
-                            </ul>
-                        </li>
                     </ul>
                 </div>
                 <!-- menu nav -->
@@ -563,7 +456,8 @@
                         </div>
                         <!-- /footer logo -->
 
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                            labore et dolore magna</p>
 
                         <!-- footer social -->
                         <ul class="footer-social">
@@ -632,7 +526,10 @@
                     <!-- footer copyright -->
                     <div class="footer-copyright">
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                        All rights reserved | This template is made with <i class="fa fa-heart-o"
+                                                                            aria-hidden="true"></i> by <a
+                            href="https://colorlib.com" target="_blank">Colorlib</a>
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     </div>
                     <!-- /footer copyright -->
@@ -645,12 +542,12 @@
     <!-- /FOOTER -->
 
     <!-- jQuery Plugins -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/slick.min.js"></script>
-    <script src="js/nouislider.min.js"></script>
-    <script src="js/jquery.zoom.min.js"></script>
-    <script src="js/main.js"></script>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/slick.min.js"></script>
+    <script src="./js/nouislider.min.js"></script>
+    <script src="./js/jquery.zoom.min.js"></script>
+    <script src="./js/main.js"></script>
 </th:block>
 </body>
 </html>

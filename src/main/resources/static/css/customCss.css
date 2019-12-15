@@ -1,0 +1,16 @@
+.banner.banner-1 img.img-cate,  .banner.banner-1 img.img-collection{
+    height: 200px;
+    object-fit: cover;
+    opacity: .8;
+    transition: .5s;
+    transform: scale(1);
+}
+
+.banner.banner-1:hover img.img-cate, .banner.banner-1:hover img.img-collection{
+    transform: scale(1.1);
+}
+
+.banner.banner-1{
+    background: #000;
+    overflow: hidden;
+}

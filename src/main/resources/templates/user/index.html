@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
-    <title>E-SHOP HTML Template</title>
+    <title>GL-SHOP</title>
     <th:block th:include="user/fragment/layout :: HEAD"> </th:block>
 </head>
 
 <body>
 
-<th:block th:include="user/fragment/layout :: HEADER"> </th:block>
+<th:block th:include="user/fragment/layout :: HEADER(categories=${categories})"> </th:block>
 
 <th:block th:include="user/fragment/layout :: NAVIGATION"> </th:block>
-
 <!-- HOME -->
 <div id="home">
     <!-- container -->
@@ -57,47 +56,28 @@
     </div>
     <!-- /container -->
 </div>
-<!-- /HOME -->
 
-<!-- section -->
 <div class="section">
     <!-- container -->
     <div class="container">
         <!-- row -->
         <div class="row">
             <!-- banner -->
-            <div class="col-md-4 col-sm-6">
-                <a class="banner banner-1" href="#">
-                    <img src="./img/banner10.jpg" alt="">
-                    <div class="banner-caption text-center">
-                        <h2 class="white-color">NEW COLLECTION</h2>
-                    </div>
-                </a>
-            </div>
+            <th:block th:each="collection : ${collections}">
+                <div class="col-lg-3 col-sm-6">
+                    <a class="banner banner-1" href="#">
+                        <th:block th:if="${collection.isParent()}">
+                            <img th:src="${collection.images}" alt="" class="img-collection">
+                            <div class="banner-caption text-center">
+                                <h2 class="white-color">
+                                    <span th:text="${collection.name}"></span>
+                                </h2>
+                            </div>
+                        </th:block>
+                    </a>
+                </div>
+            </th:block>
             <!-- /banner -->
-
-            <!-- banner -->
-            <div class="col-md-4 col-sm-6">
-                <a class="banner banner-1" href="#">
-                    <img src="./img/banner11.jpg" alt="">
-                    <div class="banner-caption text-center">
-                        <h2 class="white-color">NEW COLLECTION</h2>
-                    </div>
-                </a>
-            </div>
-            <!-- /banner -->
-
-            <!-- banner -->
-            <div class="col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-3">
-                <a class="banner banner-1" href="#">
-                    <img src="./img/banner12.jpg" alt="">
-                    <div class="banner-caption text-center">
-                        <h2 class="white-color">NEW COLLECTION</h2>
-                    </div>
-                </a>
-            </div>
-            <!-- /banner -->
-
         </div>
         <!-- /row -->
     </div>
@@ -125,9 +105,9 @@
             <!-- banner -->
             <div class="col-md-3 col-sm-6 col-xs-6">
                 <div class="banner banner-2">
-                    <img src="./img/banner14.jpg" alt="">
+                    <img th:src="@{${collectionNew.images}}" alt="">
                     <div class="banner-caption">
-                        <h2 class="white-color">NEW<br>COLLECTION</h2>
+                        <h2 class="white-color">NEW<br>Bộ sưu tập</h2>
                         <button class="primary-btn">Shop Now</button>
                     </div>
                 </div>

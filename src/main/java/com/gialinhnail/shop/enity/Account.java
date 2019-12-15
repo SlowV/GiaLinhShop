@@ -22,7 +22,6 @@ public class Account {
     private String fullName;
     @NotNull
     private String phoneNumber;
-    private int gender;
     private String address;
     @Column(columnDefinition = "TEXT")
     private String introduction;
@@ -37,13 +36,12 @@ public class Account {
     public Account() {
     }
 
-    public Account(String email, String password, String fullName, String phoneNumber, int gender, String address, String introduction) {
+    public Account(String email, String password, String fullName, String phoneNumber, String address, String introduction) {
         long now = Calendar.getInstance().getTimeInMillis();
         this.email = email;
         this.password = password;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
-        this.gender = gender;
         this.address = address;
         this.introduction = introduction;
         this.createdAt = now;

@@ -10,6 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryService {
     @Autowired
@@ -20,9 +22,26 @@ public class CategoryService {
        return categoryRepository.save(category);
     }
 
-    public Page<Category> categories(int page){
-        int size = 2; //default page size is 10
+    public Page<Category> categories(int page, int size){
         LOGGER.info(String.valueOf(page));
         return categoryRepository.findAll(PageRequest.of(page, size));
+    }
+
+    public List<Category> findAllNoStatus (){
+        return categoryRepository.findAll();
+    }
+
+    public List<Category> findByStatus (int status){
+        return categoryRepository.findAllByStatus(status);
+    }
+
+    public void saveAll(List<Category> categories){
+        for (Category category : categories) {
+            categoryRepository.save(category);
+        }
+    }
+
+    public Category findById(long id){
+        return categoryRepository.findById(id).orElse(null);
     }
 }

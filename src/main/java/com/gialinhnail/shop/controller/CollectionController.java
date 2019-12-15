@@ -1,4 +1,4 @@
-package com.gialinhnail.shop.controller.admin;
+package com.gialinhnail.shop.controller;
 
 import com.gialinhnail.shop.service.CollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +14,8 @@ public class CollectionController {
     @Autowired
     CollectionService collectionService;
     @GetMapping
-    public String list(Model model, @RequestParam("page") int page){
-        model.addAttribute("pageCollection", collectionService.collections(page));
+    public String list(Model model, @RequestParam("page") int page, @RequestParam("size") int size){
+        model.addAttribute("pageCollection", collectionService.collections(page, size));
         return "admin/page/collection/list";
     }
 }

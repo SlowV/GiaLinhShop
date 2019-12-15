@@ -1,4 +1,4 @@
-package com.gialinhnail.shop.controller.admin;
+package com.gialinhnail.shop.controller;
 
 import com.gialinhnail.shop.enity.Category;
 import com.gialinhnail.shop.service.CategoryService;
@@ -6,14 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @Controller
 @RequestMapping(value = "/admin/category")
@@ -24,13 +20,12 @@ public class CategoryController {
     CategoryService categoryService;
 
     @GetMapping
-    public String list(Model model, @RequestParam( value = "page") int page) {
+    public String list(Model model, @RequestParam( value = "page") int page, @RequestParam("size") int size) {
         if (page != 0){
             page = page - 1;
         }
-        Page<Category> categories = categoryService.categories(page);
+        Page<Category> categories = categoryService.categories(page, size);
         model.addAttribute("pageCategory", categories);
-//        return getPathView("list");
         return "admin/page/category/list";
     }
 

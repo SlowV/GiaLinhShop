@@ -1,13 +1,21 @@
 package com.gialinhnail.shop.enity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.gialinhnail.shop.service.CategoryService;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
-import java.util.Calendar;
-import java.util.Set;
+import javax.validation.constraints.Null;
+import java.util.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +30,20 @@ public class Category {
     private long deletedAt;
     private int status;
 
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Category parent;
+
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    private Set<Category> children = new HashSet<>();
+
     @OneToMany(mappedBy = "category")
     private Set<Product> products;
 
     public Category() {
     }
+
+
 
     public Category(String name, String description, String images) {
         long now = Calendar.getInstance().getTimeInMillis();
@@ -36,6 +53,17 @@ public class Category {
         this.createdAt = now;
         this.updatedAt = now;
         this.status = Status.HOAT_DONG.getInt();
+    }
+
+    public Category(String name, String description, String images, Category category) {
+        long now = Calendar.getInstance().getTimeInMillis();
+        this.name = name;
+        this.description = description;
+        this.images = images;
+        this.createdAt = now;
+        this.updatedAt = now;
+        this.status = Status.HOAT_DONG.getInt();
+        this.parent = category;
     }
 
     public String getStatusString(){

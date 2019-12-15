@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Products</title>
+    <th:block th:include="user/fragment/layout :: HEAD"></th:block>
+</head>
+<body>
+<!-- BREADCRUMB -->
+<div id="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li class="active">Products</li>
+        </ul>
+    </div>
+</div>
+<!-- /BREADCRUMB -->
+
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <form th:action="@{/account/register}" th:method="post" th:object="${account}" class="w-100">
+                    <div class="form-group">
+                        <label class="d-block">
+                            <div>Email</div>
+                        </label>
+                        <input type="text" class="form-control" th:field="*{email}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <div>Mật khẩu</div>
+                        </label>
+                        <input type="password" class="form-control" th:field="*{password}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <div>Họ và tên</div>
+                        </label>
+                        <input type="text" class="form-control" th:field="*{fullName}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <div>Số điện thoại</div>
+                        </label>
+                        <input type="text" class="form-control" th:field="*{phoneNumber}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <div>Địa chỉ</div>
+                        </label>
+                        <input type="text" class="form-control" th:field="*{address}">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <div>Giới thiệu</div>
+                        </label>
+                        <textarea class="form-control" rows="3" th:field="*{introduction}"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-outline-success" type="submit">Đăng ký</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->
+
+<th:block th:include="user/fragment/layout :: FOOTER"> </th:block>
+</body>
+
+</html>

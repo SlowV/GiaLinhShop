@@ -17,6 +17,8 @@ public class Collection {
     private String description;
     @Column(columnDefinition = "TEXT")
     private String images;
+    private long collectionParentId;
+    private boolean isParent;
     private long createdAt;
     private long updatedAt;
     private long deletedAt;
@@ -28,7 +30,7 @@ public class Collection {
     public Collection() {
     }
 
-    public Collection(String name, String description, String images) {
+    public Collection(String name, String description, String images, boolean isParent) {
         long now = Calendar.getInstance().getTimeInMillis();
         this.name = name;
         this.description = description;
@@ -36,9 +38,22 @@ public class Collection {
         this.createdAt = now;
         this.updatedAt = now;
         this.status = Status.HOAT_DONG.getInt();
+        this.isParent = isParent;
     }
 
-    enum Status {
+    public Collection(String name, String description, String images, boolean isParent, long collectionParentId) {
+        long now = Calendar.getInstance().getTimeInMillis();
+        this.name = name;
+        this.description = description;
+        this.images = images;
+        this.createdAt = now;
+        this.updatedAt = now;
+        this.status = Status.HOAT_DONG.getInt();
+        this.isParent = isParent;
+        this.collectionParentId = collectionParentId;
+    }
+
+    public static enum Status {
         HOAT_DONG(1), NGUNG_HOAT_DONG(0), DA_XOA(-1);
         private int number;
 
