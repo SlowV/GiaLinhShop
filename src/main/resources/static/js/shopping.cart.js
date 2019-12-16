@@ -1,5 +1,6 @@
 var btn_add_to_cart;
-const BASE_URL = "http://localhost:1998";
+// const BASE_URL = "http://localhost:1998";
+const BASE_URL = "https://gialinh.herokuapp.com/";
 const API_CART = BASE_URL + '/cart';
 $(document).ready(function () {
     start();
