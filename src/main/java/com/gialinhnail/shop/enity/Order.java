@@ -20,7 +20,7 @@ public class Order {
     private long deletedAt;
     private int status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customerId")
     private Customer customer;
 

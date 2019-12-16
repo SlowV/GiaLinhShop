@@ -1,5 +1,6 @@
 package com.gialinhnail.shop.enity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,12 +33,15 @@ public class Product {
     private long deletedAt;
     private int status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Category category;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Collection collection;
 
     @OneToMany(mappedBy = "product")
+    @JsonIgnore
     private Set<OrderDetail> orderDetails;
 
     public Product() {

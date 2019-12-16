@@ -30,11 +30,11 @@ public class Category {
     private long deletedAt;
     private int status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Category parent;
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "parent")
     private Set<Category> children = new HashSet<>();
 
     @OneToMany(mappedBy = "category")
