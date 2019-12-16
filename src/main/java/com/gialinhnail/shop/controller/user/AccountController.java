@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AccountController {
     @Autowired
     AccountService accountService;
+    @Autowired
+    CategoryService categoryService;
 
     @GetMapping("/register")
     public String register(Model model){
@@ -30,6 +32,7 @@ public class AccountController {
 
     @GetMapping("/login")
     public String login(Model model){
+        model.addAttribute("categories", categoryService.findByStatus(1));
         model.addAttribute("account", new Account());
         return "user/login";
     }

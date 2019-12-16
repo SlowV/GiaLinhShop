@@ -6,6 +6,9 @@
 </head>
 
 <body>
+<th:block th:include="user/fragment/layout :: HEADER(categories=${categories})"> </th:block>
+
+<th:block th:include="user/fragment/layout :: NAVIGATION"> </th:block>
 <!-- BREADCRUMB -->
 <div id="breadcrumb">
     <div class="container">

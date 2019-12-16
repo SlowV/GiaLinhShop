@@ -1,9 +1,13 @@
 .banner.banner-1 img.img-cate,  .banner.banner-1 img.img-collection{
-    height: 200px;
+    height: 150px;
     object-fit: cover;
     opacity: .8;
     transition: .5s;
     transform: scale(1);
+}
+
+.banner.banner-1 img.img-collection{
+    height: 200px;
 }
 
 .banner.banner-1:hover img.img-cate, .banner.banner-1:hover img.img-collection{

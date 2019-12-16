@@ -130,13 +130,7 @@
                                             <th:block th:if="${product.isSale()}">
                                                 <span class="sale" th:text=" '-' + ${product.perCent} + '%'"></span>
                                             </th:block>
-
                                         </div>
-<!--                                        <ul class="product-countdown">-->
-<!--                                            <li><span>00 H</span></li>-->
-<!--                                            <li><span>00 M</span></li>-->
-<!--                                            <li><span>00 S</span></li>-->
-<!--                                        </ul>-->
                                         <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Xem nhanh</button>
                                         <img th:src="${product.images.split(',')[0]}" alt="">
                                     </div>
@@ -171,11 +165,10 @@
                                         <div class="product-btns">
                                             <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
                                             <button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
-                                            <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ</button>
+                                            <button class="primary-btn add-to-cart" th:id="${product.id}"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ</button>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /Product Single -->
                             </th:block>
                         </th:block>
                     </div>
@@ -344,7 +337,6 @@
                             </div>
                         </div>
                         <!-- /Product Single -->
-
                     </div>
                 </div>
             </div>
@@ -781,5 +773,11 @@
 <!-- /section -->
 
 <th:block th:include="user/fragment/layout :: FOOTER"> </th:block>
+<script>
+    $(document).ready(function () {
+        $(".category-nav").removeClass("show-on-click");
+    })
+</script>
+<script th:src="@{/js/shopping.cart.js}"></script>
 </body>
 </html>

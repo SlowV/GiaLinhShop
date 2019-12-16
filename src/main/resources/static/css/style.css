@@ -25,7 +25,7 @@ Table OF Contents
 ------ Logo
 ------ Search header
 ------ Account header
------- Cart header
+------ CartItem header
 3 > NAVIGATION
 ------ Category nav
 ------ Menu nav
@@ -424,7 +424,7 @@ textarea.input {
 }
 
 /*----------------------------*\
-	Cart header
+	CartItem header
 \*----------------------------*/
 
 .header-cart .header-btns-icon .qty {

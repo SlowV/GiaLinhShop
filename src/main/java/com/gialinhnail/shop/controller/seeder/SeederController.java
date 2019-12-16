@@ -84,16 +84,16 @@ public class SeederController {
             Arrays.asList(
                 new Product("SET SƠN ĐỎ CHANEL", 10000.0, "Set sơn đỏ hàng hiệu.",
                     "https://limnail.com/img/up-anh/anh-6354-72533971_2373721362841077_524600010046701568_n.jpg, https://limnail.com/img/up-anh//anh-7214-73084143_417501735632891_4799026569119006720_n.jpg, https://limnail.com/img/up-anh/anh-8355-72994085_694997197687353_2050994617830080512_n.jpg, https://limnail.com/img/up-anh/anh-3283-72942664_752826408522303_1045832306171838464_n.jpg",
-                    false, 0, "set sơn đỏ sml", 50, categoryService.findAllNoStatus().get(0), collectionService.findAllNoPage().get(0), true),
+                    false, 0, "set sơn đỏ sml", 50, categoryService.findAllNoStatus().get(0), collectionService.findAllNoPage().get(0)),
                 new Product("MÁY HƠ GEL TÍCH ĐIỆN", 9000.0, "MÁY HƠ GEL TÍCH ĐIỆN",
                     "https://anatran.vn/image/cache/imgdata/dung-cu-nail/may-lam-nail/lamp_ans_02/may_ho_tich_dien_1-800x390.png, https://anatran.vn/image/cache/imgdata/dung-cu-nail/may-lam-nail/lamp_ans_02/8691888480_250008574.jpg, https://anatran.vn/image/cache/imgdata/dung-cu-nail/may-lam-nail/lamp_ans_02/8691897207_250008574.jpg, https://anatran.vn/image/cache/imgdata/dung-cu-nail/may-lam-nail/lamp_ans_02/8691906034_250008574.jpg",
-                    true, 10, "MÁY HƠ GEL TÍCH ĐIỆN", 40, categoryService.findAllNoStatus().get(1), collectionService.findAllNoPage().get(1), true),
+                    true, 10, "MÁY HƠ GEL TÍCH ĐIỆN", 40, categoryService.findAllNoStatus().get(1), collectionService.findAllNoPage().get(1)),
                 new Product("MÁY HÚT BỤI CÓ VÒI", 800000.0, "MÁY HÚT BỤI CÓ VÒI",
                     "https://anatran.vn/image/cache/imgdata/dung-cu-nail/may-lam-nail/may_hut/may_hut_co_voi_1-800x390.png, https://anatran.vn/image/cache/imgdata/dung-cu-nail/may-lam-nail/may_hut/9382734480_443469210.jpg, https://anatran.vn/image/cache/imgdata/dung-cu-nail/may-lam-nail/may_hut/9407494413_443469210.jpg, https://anatran.vn/image/cache/imgdata/dung-cu-nail/may-lam-nail/may_hut/9427394974_443469210.jpg",
-                    false, 0, "MÁY HÚT BỤI CÓ VÒI",20, categoryService.findAllNoStatus().get(2), collectionService.findAllNoPage().get(2), true),
+                    false, 0, "MÁY HÚT BỤI CÓ VÒI",20, categoryService.findAllNoStatus().get(2), collectionService.findAllNoPage().get(2)),
                 new Product("BỘ LIÊN KẾT SƠN GEL ANS", 800000.0, "BỘ LIÊN KẾT SƠN GEL ANS",
                     "https://anatran.vn/image/cache/imgdata/combo/bo_lien_ket_2-800x390.png, https://anatran.vn/image/cache/imgdata/combo/bo_lien_ket.png",
-                    true, 20, "BỘ LIÊN KẾT SƠN GEL ANS", 100, categoryService.findAllNoStatus().get(3), collectionService.findAllNoPage().get(3), false)
+                    true, 20, "BỘ LIÊN KẾT SƠN GEL ANS", 100, categoryService.findAllNoStatus().get(3), collectionService.findAllNoPage().get(3))
                 )
         );
         if (existProduct != null && existProduct.size() > 0) {

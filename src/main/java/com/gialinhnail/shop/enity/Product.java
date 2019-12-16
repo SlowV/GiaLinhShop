@@ -1,6 +1,8 @@
 package com.gialinhnail.shop.enity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Calendar;
@@ -8,7 +10,8 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +26,6 @@ public class Product {
     private int perCent;
     @Column(columnDefinition = "TEXT")
     private String detail;
-    private boolean isSlide;
     private int quantity;
     private long createdAt;
     private long updatedAt;
@@ -41,7 +43,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, double unitPrice, String description, String images, boolean isSale, int perCent, String detail, int quantity, boolean isSlide) {
+    public Product(String name, double unitPrice, String description, String images, boolean isSale, int perCent, String detail, int quantity) {
         long now = Calendar.getInstance().getTimeInMillis();
         this.name = name;
         this.unitPrice = unitPrice;
@@ -54,10 +56,10 @@ public class Product {
         this.createdAt = now;
         this.updatedAt = now;
         this.status = Product.Status.VAN_CON.getInt();
-        this.isSlide = isSlide;
+
     }
 
-    public Product(String name, double unitPrice, String description, String images, boolean isSale, int perCent, String detail, int quantity, Category category, Collection collection, boolean isSlide) {
+    public Product(String name, double unitPrice, String description, String images, boolean isSale, int perCent, String detail, int quantity, Category category, Collection collection) {
         long now = Calendar.getInstance().getTimeInMillis();
         this.name = name;
         this.unitPrice = unitPrice;
@@ -72,7 +74,6 @@ public class Product {
         this.status = Product.Status.VAN_CON.getInt();
         this.category = category;
         this.collection = collection;
-        this.isSlide = isSlide;
     }
 
     public boolean isNew(){

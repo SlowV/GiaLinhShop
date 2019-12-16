@@ -28,4 +28,8 @@ public class ProductService {
         return productRepository.findAll(PageRequest.of(page, size, direction, "CreatedAt"));
     }
 
+    public Product findById (long id){
+        return productRepository.findById(id).orElse(null);
+    }
+
 }
