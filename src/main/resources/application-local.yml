@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: "jdbc:mysql://localhost:3306/vhshop?useSSL=false&useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC"
+    username: "root"
+    password:
