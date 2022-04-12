@@ -19,8 +19,15 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
         <org.projectlombok.version>1.18.22</org.projectlombok.version>
+        <minio.version>8.2.0</minio.version>
     </properties>
     <dependencies>
+        <!-- Minio -->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>${minio.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>

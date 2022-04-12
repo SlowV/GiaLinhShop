@@ -7,6 +7,7 @@ spring:
       test-while-idle: true
       validation-query: SELECT 1
   jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
     properties:
       hibernate:
@@ -15,6 +16,14 @@ spring:
       ddl-auto: update
       naming:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+
+app:
+  services:
+    minio:
+      url: http://localhost:9000
+      accessKey: admin
+      secretKey: SlowV@123
+      bucket: fruit
 
 server:
   port: 1998

@@ -1,0 +1,81 @@
+version: "3.7"
+
+x-minio-common: &minio-common
+  image: docker.io/bitnami/minio:2022
+  environment:
+    - MINIO_ROOT_USER=admin
+    - MINIO_ROOT_PASSWORD=SlowV@123
+    - MINIO_DISTRIBUTED_MODE_ENABLED=yes
+    - MINIO_DISTRIBUTED_NODES=fruit-minio-1,fruit-minio-2,fruit-minio-3,fruit-minio-4
+  networks:
+    - backend
+
+
+services:
+  #  fruit-app:
+  #    image: fruit
+  #    networks:
+  #      - backend
+  #    environment:
+  #      - MINIO_SERVER_ACCESS_KEY=minio-access-key
+  #      - MINIO_SERVER_SECRET_KEY=minio-secret-key
+
+  fruit-mysql:
+    image: 'mysql:8.0.17'
+    container_name: fruit-mysql
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=fruit
+    ports:
+      - 3306:3306
+    restart: always
+    command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+    #    volumes:
+    #      - mysql_volume:/var/lib/mysql/
+    networks:
+      - backend
+
+  fruit-minio-1:
+    <<: *minio-common
+    container_name: fruit-minio-1
+    ports:
+      - 9000:9000
+      - 9001:9001
+    volumes:
+      - data1:/data
+
+  fruit-minio-2:
+    <<: *minio-common
+    container_name: fruit-minio-2
+    volumes:
+      - data2:/data
+
+  fruit-minio-3:
+    <<: *minio-common
+    container_name: fruit-minio-3
+    volumes:
+      - data3:/data
+
+  fruit-minio-4:
+    <<: *minio-common
+    container_name: fruit-minio-4
+    volumes:
+      - data4:/data
+
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  mysql_volume:
+    driver: local
+  data1:
+    driver: local
+  data2:
+    driver: local
+  data3:
+    driver: local
+  data4:
+    driver: local

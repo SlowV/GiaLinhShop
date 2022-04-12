@@ -1,4 +1,4 @@
-package com.slowv.fruit.web.rest;
+package com.slowv.fruit.web.rest.admin;
 
 import com.slowv.fruit.service.impl.CollectionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

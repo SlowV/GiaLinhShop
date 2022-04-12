@@ -46,6 +46,9 @@ public class Product implements Serializable {
     private Set<OrderDetail> orderDetails = new HashSet<>();
 
     public Product() {
+        long now = Calendar.getInstance().getTimeInMillis();
+        this.createdAt = now;
+        this.updatedAt = now;
     }
 
     public Product(String name, double unitPrice, String description, String images, int perCent, String detail, int quantity) {
