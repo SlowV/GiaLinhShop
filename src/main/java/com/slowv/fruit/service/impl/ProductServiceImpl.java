@@ -4,19 +4,28 @@ import com.slowv.fruit.config.ApplicationProperties;
 import com.slowv.fruit.config.MinioConfig;
 import com.slowv.fruit.domain.Product;
 import com.slowv.fruit.integration.minio.MinioService;
+import com.slowv.fruit.repository.CategoryRepository;
+import com.slowv.fruit.repository.CollectionRepository;
 import com.slowv.fruit.repository.ProductRepository;
 import com.slowv.fruit.service.ProductService;
 import com.slowv.fruit.service.dto.ProductDto;
 import com.slowv.fruit.service.dto.request.ProductCreateDto;
+import com.slowv.fruit.service.mapper.ProductMapper;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import lombok.var;
+import org.springframework.beans.BeanUtils;
+import org.springframework.core.SpringProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.ObjectUtils;
 
 import java.util.List;
+import java.util.Objects;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -26,27 +35,46 @@ public class ProductServiceImpl implements ProductService {
 
     private final MinioConfig minioConfig;
 
-    public Product save(Product product) {
-        return productRepository.save(product);
-    }
+    private final ProductMapper productMapper;
 
-    public List<Product> findAllNoPage() {
+    private final CategoryRepository categoryRepository;
+
+    private final CollectionRepository collectionRepository;
+
+    @Override
+    public List<Product> findAll() {
         return productRepository.findAll();
     }
 
-    public Page<Product> products(int page, int size, Direction direction) {
+    @Override
+    public Page<Product> findAll(int page, int size, Direction direction) {
         return productRepository.findAll(PageRequest.of(page, size, direction, "CreatedAt"));
     }
 
+    @Override
     public Product findById(long id) {
         return productRepository.findById(id).orElse(null);
     }
 
     @Override
-    public ProductDto store(ProductCreateDto dto) {
+    public Product store(ProductCreateDto dto) {
         final var product = new Product();
+        BeanUtils.copyProperties(dto, product);
         var images = minioService.upload(minioConfig.getBucket(), product.getCreatedAt(), dto.getImages());
+        log.info("IMAGES PATH " + images);
         product.setImages(images);
-        return null;
+        log.info("Product: " + product.toString());
+
+        if (Objects.nonNull(dto.getCategoryId())) {
+            final var category = categoryRepository.getById(dto.getCategoryId());
+            product.setCategory(category);
+        }
+
+        if (Objects.nonNull(dto.getCollectionId())) {
+            final var collection = collectionRepository.getById(dto.getCollectionId());
+            product.setCollection(collection);
+        }
+
+        return productRepository.save(product);
     }
 }

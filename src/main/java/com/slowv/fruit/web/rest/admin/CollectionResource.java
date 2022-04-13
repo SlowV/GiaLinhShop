@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(value = "/admin/collection")
-public class CollectionController {
+public class CollectionResource {
     @Autowired
     CollectionServiceImpl collectionServiceImpl;
     @GetMapping

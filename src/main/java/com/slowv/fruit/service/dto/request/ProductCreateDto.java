@@ -13,8 +13,8 @@ public class ProductCreateDto {
     private int perCent;
     private String description;
     private String detail;
-    private String categoryId;
-    private String collectionId;
+    private Long categoryId;
+    private Long collectionId;
     private int quantity;
     private List<MultipartFile> images = new ArrayList<>();
 }

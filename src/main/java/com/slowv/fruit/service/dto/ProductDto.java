@@ -7,7 +7,9 @@ public class ProductDto {
     private long id;
     private String name;
     private double unitPrice;
+    private String unitPriceString;
     private double discountPrice;
+    private String discountPriceString;
     private boolean newzz;
     private String description;
     private String images;
@@ -19,4 +21,7 @@ public class ProductDto {
     private String updatedAt;
     private int statusCode;
     private String statusLabel;
+
+    private CategoryDto category;
+    private CollectionDto collection;
 }

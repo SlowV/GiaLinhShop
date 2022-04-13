@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 @Slf4j
 @RequestMapping(value = "/admin/category")
-public class CategoryController {
+public class CategoryResource {
 
     private final CategoryServiceImpl categoryServiceImpl;
 
@@ -24,7 +24,7 @@ public class CategoryController {
             page = page - 1;
         }
 
-        Page<Category> categories = categoryServiceImpl.categories(page, size);
+        Page<Category> categories = categoryServiceImpl.findAll(page, size);
         model.addAttribute("pageCategory", categories);
         return "admin/page/category/list";
     }

@@ -42,7 +42,7 @@ public class HomeController {
         var collections = collectionServiceImpl.findAllNoPage()
                 .stream().map(collectionMapper::toDto)
                 .collect(Collectors.toList());
-        var products = productServiceImpl.products(0, 10, Sort.Direction.DESC).getContent()
+        var products = productServiceImpl.findAll(0, 10, Sort.Direction.DESC).getContent()
                 .stream().map(productMapper::toDto)
                 .collect(Collectors.toList());
         return new HomeResponseDTO(products, collections, categories);

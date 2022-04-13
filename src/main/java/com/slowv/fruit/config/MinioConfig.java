@@ -38,7 +38,7 @@ public class MinioConfig {
             boolean exists = client.bucketExists(BucketExistsArgs.builder().bucket(bucket).build());
             if (!exists) client.makeBucket(MakeBucketArgs.builder().bucket(bucket).build());
         } catch (Exception e) {
-            throw new BusinessException("400", "Unable to make bucket", e);
+            throw new BusinessException(400, "Unable to make bucket");
         }
     }
 }

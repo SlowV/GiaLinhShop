@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.slowv.fruit.domain.enums.EProductStatus;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+@ToString
 @Entity
 @Getter
 @Setter
@@ -49,37 +51,7 @@ public class Product implements Serializable {
         long now = Calendar.getInstance().getTimeInMillis();
         this.createdAt = now;
         this.updatedAt = now;
-    }
-
-    public Product(String name, double unitPrice, String description, String images, int perCent, String detail, int quantity) {
-        long now = Calendar.getInstance().getTimeInMillis();
-        this.name = name;
-        this.unitPrice = unitPrice;
-        this.description = description;
-        this.images = images;
-        this.perCent = perCent;
-        this.detail = detail;
-        this.quantity = quantity;
-        this.createdAt = now;
-        this.updatedAt = now;
         this.status = EProductStatus.VAN_CON.getNumber();
-
-    }
-
-    public Product(String name, double unitPrice, String description, String images, int perCent, String detail, int quantity, Category category, Collection collection) {
-        long now = Calendar.getInstance().getTimeInMillis();
-        this.name = name;
-        this.unitPrice = unitPrice;
-        this.description = description;
-        this.images = images;
-        this.perCent = perCent;
-        this.detail = detail;
-        this.quantity = quantity;
-        this.createdAt = now;
-        this.updatedAt = now;
-        this.status = EProductStatus.VAN_CON.getNumber();
-        this.category = category;
-        this.collection = collection;
     }
 
     public boolean isNew() {
