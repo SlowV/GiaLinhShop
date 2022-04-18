@@ -11,7 +11,7 @@ import java.util.*;
 @Entity
 @Getter
 @Setter
-public class Category implements Serializable {
+public class Category extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -20,9 +20,6 @@ public class Category implements Serializable {
     private String description;
     @Column(columnDefinition = "TEXT")
     private String images;
-    private long createdAt;
-    private long updatedAt;
-    private long deletedAt;
     private int status;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -39,12 +36,9 @@ public class Category implements Serializable {
     }
 
     public Category(String name, String description, String images) {
-        long now = Calendar.getInstance().getTimeInMillis();
         this.name = name;
         this.description = description;
         this.images = images;
-        this.createdAt = now;
-        this.updatedAt = now;
         this.status = ECategoryStatus.HOAT_DONG.getNumber();
     }
 
@@ -53,8 +47,6 @@ public class Category implements Serializable {
         this.name = name;
         this.description = description;
         this.images = images;
-        this.createdAt = now;
-        this.updatedAt = now;
         this.status = ECategoryStatus.HOAT_DONG.getNumber();
         this.parent = category;
     }

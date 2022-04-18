@@ -12,7 +12,5 @@ import org.mapstruct.ReportingPolicy;
 public interface CategoryMapper {
     @Mapping(target = "statusCode", expression = "java(ECategoryStatus.getStatusByValue(category.getStatus()).getNumber())")
     @Mapping(target = "statusLabel", expression = "java(ECategoryStatus.getStatusByValue(category.getStatus()).getLabel())")
-    @Mapping(target = "createdAt", expression = "java(DateUtils.longToString(category.getCreatedAt()))")
-    @Mapping(target = "updatedAt", expression = "java(DateUtils.longToString(category.getUpdatedAt()))")
     CategoryDto toDto(Category category);
 }

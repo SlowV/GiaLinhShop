@@ -28,8 +28,4 @@ public class CollectionServiceImpl {
     public void saveAll(List<Collection> collections){
         collectionRepository.saveAll(collections);
     }
-
-    public Collection findOneByCreatedAtDesc(){
-        return collectionRepository.findTopByOrderByCreatedAtDesc();
-    }
 }

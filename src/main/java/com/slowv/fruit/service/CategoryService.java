@@ -1,7 +1,6 @@
 package com.slowv.fruit.service;
 
 import com.slowv.fruit.domain.Category;
-import com.slowv.fruit.service.dto.CategoryDto;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

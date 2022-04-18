@@ -10,7 +10,9 @@ import com.slowv.fruit.repository.ProductRepository;
 import com.slowv.fruit.service.ProductService;
 import com.slowv.fruit.service.dto.ProductDto;
 import com.slowv.fruit.service.dto.request.ProductCreateDto;
+import com.slowv.fruit.service.dto.request.ProductUpdateDto;
 import com.slowv.fruit.service.mapper.ProductMapper;
+import com.slowv.fruit.web.errors.BusinessException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.var;
@@ -57,10 +59,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product update(ProductUpdateDto dto) {
+        if (Objects.isNull(dto.getId())) {
+            throw new BusinessException(400, "Id product do not exist!");
+        }
+
+        if (Objects.isNull(findById(dto.getId()))) {
+            throw new BusinessException(400, "Id product do not exist!");
+        }
+        final var product = productMapper.toEntity(dto);
+        return productRepository.save(product);
+    }
+
+    @Override
     public Product store(ProductCreateDto dto) {
         final var product = new Product();
         BeanUtils.copyProperties(dto, product);
-        var images = minioService.upload(minioConfig.getBucket(), product.getCreatedAt(), dto.getImages());
+        var images = minioService.upload(minioConfig.getBucket(), product.getCreatedDate().toEpochMilli(), dto.getImages());
         log.info("IMAGES PATH " + images);
         product.setImages(images);
         log.info("Product: " + product.toString());

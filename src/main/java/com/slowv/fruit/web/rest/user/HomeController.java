@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(value = "/")
+@RequestMapping(value = "/user")
 @AllArgsConstructor
 @Slf4j
 public class HomeController {
@@ -35,7 +35,7 @@ public class HomeController {
     private final ProductMapper productMapper;
 
     @GetMapping
-    public HomeResponseDTO index(Model model) {
+    public HomeResponseDTO index() {
         var categories = categoryServiceImpl.findByStatus(1)
                 .stream().map(categoryMapper::toDto)
                 .collect(Collectors.toList());

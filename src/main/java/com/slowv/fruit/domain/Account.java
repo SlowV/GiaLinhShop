@@ -1,5 +1,6 @@
 package com.slowv.fruit.domain;
 
+import com.slowv.fruit.domain.enums.EAccountStatus;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -35,6 +37,16 @@ public class Account implements Serializable {
     private long deletedAt;
     private int status;
 
+    private String uuid;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "account_roles",
+            joinColumns = @JoinColumn(name = "account_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    Set<Role> roles = new HashSet<>();
+
     @OneToMany(mappedBy = "account")
     @ToString.Exclude
     private Set<Customer> customers;
@@ -52,27 +64,11 @@ public class Account implements Serializable {
         this.introduction = introduction;
         this.createdAt = now;
         this.updatedAt = now;
-        this.status  = Status.HOAT_DONG.getInt();
+        this.status  = EAccountStatus.HOAT_DONG.getInt();
     }
 
     enum Status {
-        HOAT_DONG(1), DANG_KHOA(0), DA_XOA(-1);
-        private int number;
-
-        Status(int number){
-            this.number = number;
-        }
-
-        public int getInt(){
-            return number;
-        }
-
-        public static Status getStatusByValue(int value) {
-            for (Status status : Status.values()) {
-                if (status.number == value) return status;
-            }
-            throw new IllegalArgumentException("Kiểu trạng thái không tồn tại!");
-        }
+        H
     }
 
     @Override

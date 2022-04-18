@@ -10,4 +10,10 @@ public class ApplicationProperties {
 
     @Value("${spring.profiles.active}")
     private String springActive;
+
+    @Value("${spring.security.jwt.secret}")
+    private String jwtSecret;
+
+    @Value("${spring.security.jwt.expire}")
+    int jwtExpiration;
 }

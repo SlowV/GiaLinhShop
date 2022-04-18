@@ -2,6 +2,8 @@ package com.slowv.fruit.service.dto;
 
 import lombok.Data;
 
+import java.time.Instant;
+
 @Data
 public class ProductDto {
     private long id;
@@ -17,8 +19,8 @@ public class ProductDto {
     private int perCent;
     private String detail;
     private int quantity;
-    private String createdAt;
-    private String updatedAt;
+    private Instant createdAt;
+    private Instant updatedAt;
     private int statusCode;
     private String statusLabel;
 

@@ -13,7 +13,5 @@ public interface CollectionMapper {
 
     @Mapping(target = "statusCode", expression = "java(ECategoryStatus.getStatusByValue(collection.getStatus()).getNumber())")
     @Mapping(target = "statusLabel", expression = "java(ECategoryStatus.getStatusByValue(collection.getStatus()).getLabel())")
-    @Mapping(target = "createdAt", expression = "java(DateUtils.longToString(collection.getCreatedAt()))")
-    @Mapping(target = "updatedAt", expression = "java(DateUtils.longToString(collection.getUpdatedAt()))")
     CollectionDto toDto(Collection collection);
 }

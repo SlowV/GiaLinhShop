@@ -3,21 +3,16 @@ spring:
     allow-circular-references: true
   profiles:
     active: local
+  security:
+    jwt:
+      secret: ${JWT_SECRET:1ecd8e66-e5aa-42a3-b73f-ea24cc1fc088}
+      expire: ${JWT_EXPIRE:86400000}
+
 
   datasource:
     tomcat:
       test-while-idle: true
       validation-query: SELECT 1
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-    hibernate:
-      ddl-auto: update
-      naming:
-        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
 
 app:
   services:

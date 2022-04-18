@@ -4,6 +4,7 @@ import com.slowv.fruit.domain.Product;
 import com.slowv.fruit.domain.enums.EProductStatus;
 import com.slowv.fruit.service.dto.ProductDto;
 import com.slowv.fruit.service.dto.request.ProductCreateDto;
+import com.slowv.fruit.service.dto.request.ProductUpdateDto;
 import com.slowv.fruit.util.CurrencyUtils;
 import com.slowv.fruit.util.DateUtils;
 import org.mapstruct.Mapper;
@@ -20,12 +21,12 @@ public interface ProductMapper {
 
     @Mapping(target = "statusCode", expression = "java(EProductStatus.getStatusByValue(product.getStatus()).getNumber())")
     @Mapping(target = "statusLabel", expression = "java(EProductStatus.getStatusByValue(product.getStatus()).getLabel())")
-    @Mapping(target = "createdAt", expression = "java(DateUtils.longToString(product.getCreatedAt()))")
-    @Mapping(target = "updatedAt", expression = "java(DateUtils.longToString(product.getUpdatedAt()))")
     @Mapping(target = "discountPrice", expression = "java(product.getPriceDiscount())")
     @Mapping(target = "sale", expression = "java(product.getPerCent() > 0)")
     @Mapping(target = "newzz", expression = "java(product.isNew())")
     @Mapping(target = "unitPriceString", expression = "java(CurrencyUtils.format(product.getUnitPrice()))")
     @Mapping(target = "discountPriceString", expression = "java(CurrencyUtils.format(product.getPriceDiscount()))")
     ProductDto toDto(Product product);
+
+    Product toEntity(ProductUpdateDto dto);
 }

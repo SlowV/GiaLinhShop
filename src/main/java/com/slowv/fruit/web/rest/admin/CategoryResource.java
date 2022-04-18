@@ -28,38 +28,9 @@ public class CategoryResource {
         model.addAttribute("pageCategory", categories);
         return "admin/page/category/list";
     }
-
-    @GetMapping("/create")
-    public String create(Model model) {
-        return getPathView("create");
-    }
-
-    @PostMapping("/create")
-    public String store(Model model, Category category) {
-        return getPathRedirect("");
-    }
-
-    @PostMapping("/delete/{id}")
-    public String delete(@PathVariable("id") long id) {
-        return getPathRedirect("");
-    }
-
     @GetMapping("/{id}")
     public String show(Model model, @PathVariable("id") long id) {
         return "admin/page/category/create";
     }
 
-    @PostMapping("/update")
-    public String update(Model model, Category category) {
-        return getPathRedirect("/" + category.getId());
-    }
-
-
-    private static String getPathView(String nameView) {
-        return "admin/page/category/" + nameView;
-    }
-
-    private static String getPathRedirect(String path) {
-        return "redirect:/admin/category" + path;
-    }
 }

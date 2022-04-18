@@ -5,9 +5,13 @@ import com.slowv.fruit.domain.enums.EProductStatus;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.var;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
@@ -17,7 +21,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
-public class Product implements Serializable {
+public class Product extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -31,9 +35,6 @@ public class Product implements Serializable {
     @Column(columnDefinition = "TEXT")
     private String detail;
     private int quantity;
-    private long createdAt;
-    private long updatedAt;
-    private long deletedAt;
     private int status;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -48,17 +49,12 @@ public class Product implements Serializable {
     private Set<OrderDetail> orderDetails = new HashSet<>();
 
     public Product() {
-        long now = Calendar.getInstance().getTimeInMillis();
-        this.createdAt = now;
-        this.updatedAt = now;
         this.status = EProductStatus.VAN_CON.getNumber();
     }
 
     public boolean isNew() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.add(Calendar.DATE, 7);
-        return this.createdAt < calendar.getTimeInMillis();
+        final var dateCompare = Instant.now().plus(7, ChronoUnit.DAYS);
+        return super.createdDate.isBefore(dateCompare);
     }
 
     public double getPriceDiscount() {

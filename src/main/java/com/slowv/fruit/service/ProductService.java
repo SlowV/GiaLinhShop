@@ -2,6 +2,7 @@ package com.slowv.fruit.service;
 
 import com.slowv.fruit.domain.Product;
 import com.slowv.fruit.service.dto.request.ProductCreateDto;
+import com.slowv.fruit.service.dto.request.ProductUpdateDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
@@ -12,4 +13,5 @@ public interface ProductService {
     Page<Product> findAll(int page, int size, Sort.Direction direction);
     List<Product> findAll();
     Product findById(long id);
+    Product update(ProductUpdateDto dto);
 }

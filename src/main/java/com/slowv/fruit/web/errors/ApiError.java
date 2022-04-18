@@ -9,6 +9,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 
 import javax.validation.ConstraintViolation;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +19,13 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiError {
-  LocalDateTime timestamp;
+  String timestamp;
   int code;
   String message;
   List<ApiSubError> apiSubErrors;
 
   public ApiError() {
-    this.timestamp = LocalDateTime.now();
+    this.timestamp = Instant.now().toString();
   }
 
   public ApiError(String message) {

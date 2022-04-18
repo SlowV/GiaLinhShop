@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value = "/admin")
 @AllArgsConstructor
-public class AdminController {
+public class AdminResource {
     private final CategoryServiceImpl categoryServiceImpl;
     private final CollectionServiceImpl collectionServiceImpl;
 

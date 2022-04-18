@@ -21,20 +21,19 @@ services:
   #      - MINIO_SERVER_SECRET_KEY=minio-secret-key
 
   fruit-mysql:
-    image: 'mysql:8.0.17'
-    container_name: fruit-mysql
+    container_name: postgres-db
+    image: postgres:13.0
     environment:
-      - MYSQL_USER=root
-      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-      - MYSQL_DATABASE=fruit
+      POSTGRES_USER: ${POSTGRES_USER:-user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-123456}
+      POSTGRES_DB: ${POSTGRES_DB:-fruit}
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
     ports:
-      - 3306:3306
-    restart: always
-    command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
-    #    volumes:
-    #      - mysql_volume:/var/lib/mysql/
+      - 5432:5432
     networks:
       - backend
+    restart: always
 
   fruit-minio-1:
     <<: *minio-common
@@ -69,7 +68,7 @@ networks:
     driver: bridge
 
 volumes:
-  mysql_volume:
+  postgres_volume:
     driver: local
   data1:
     driver: local
