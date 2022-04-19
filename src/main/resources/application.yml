@@ -17,10 +17,10 @@ spring:
 app:
   services:
     minio:
-      url: http://localhost:9000
-      accessKey: admin
-      secretKey: SlowV@123
+      url: ${MINIO_URL:http://localhost:9000}
+      accessKey: ${MINIO_SERVER_ACCESS_KEY:admin}
+      secretKey: ${MINIO_SERVER_SECRET_KEY:SlowV@123}
       bucket: fruit
 
 server:
-  port: 1998
+  port: 8080

@@ -12,15 +12,26 @@ x-minio-common: &minio-common
 
 
 services:
-  #  fruit-app:
-  #    image: fruit
-  #    networks:
-  #      - backend
-  #    environment:
-  #      - MINIO_SERVER_ACCESS_KEY=minio-access-key
-  #      - MINIO_SERVER_SECRET_KEY=minio-secret-key
+  fruit-app:
+    image: fruit-app
+    networks:
+      - backend
+    environment:
+      - MINIO_SERVER_ACCESS_KEY=admin
+      - MINIO_SERVER_SECRET_KEY=SlowV@123
+      - MINIO_URL=http://fruit-minio-1:9000
+      - JWT_SECRET=1ecd8e66-e5aa-42a3-b73f-ea24cc1fc088
+      - JWT_EXPIRE=86400000
+      - SPRING_PROFILES_ACTIVE=prod
+      - DB_URL=jdbc:postgresql://postgres-db:5432/fruit
+    depends_on:
+      - postgres-db
+      - fruit-minio-1
+      - fruit-minio-2
+      - fruit-minio-3
+      - fruit-minio-4
 
-  fruit-mysql:
+  postgres-db:
     container_name: postgres-db
     image: postgres:13.0
     environment:
