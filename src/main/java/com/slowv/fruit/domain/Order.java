@@ -14,33 +14,27 @@ import java.util.Set;
 @Setter
 @ToString
 @Table(name = "orders")
-public class Order implements Serializable {
+public class Order extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private double totalPrice;
     @Column(columnDefinition = "TEXT")
     private String note;
-    private long createdAt;
-    private long updatedAt;
-    private long deletedAt;
     private int status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customerId")
+    @ManyToOne()
+    @JoinColumn(name = "accountId")
     @ToString.Exclude
-    private Customer customer;
+    private Account customer;
 
     @OneToMany(mappedBy = "order")
     @ToString.Exclude
     private Set<OrderDetail> orderDetails;
 
     public Order(double totalPrice, String note) {
-        long now = Calendar.getInstance().getTimeInMillis();
         this.totalPrice = totalPrice;
         this.note = note;
-        this.createdAt = now;
-        this.updatedAt = now;
         this.status = Status.DANG_CHO_XAC_NHAN.getInt();
     }
 

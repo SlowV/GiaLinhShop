@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class ProductCreateDto {
+public class ProductCreateRequest {
     private String name;
     private double unitPrice;
     private int perCent;

@@ -3,8 +3,7 @@ package com.slowv.fruit.service.mapper;
 import com.slowv.fruit.domain.Product;
 import com.slowv.fruit.domain.enums.EProductStatus;
 import com.slowv.fruit.service.dto.ProductDto;
-import com.slowv.fruit.service.dto.request.ProductCreateDto;
-import com.slowv.fruit.service.dto.request.ProductUpdateDto;
+import com.slowv.fruit.service.dto.request.ProductUpdateRequest;
 import com.slowv.fruit.util.CurrencyUtils;
 import com.slowv.fruit.util.DateUtils;
 import org.mapstruct.Mapper;
@@ -28,5 +27,5 @@ public interface ProductMapper {
     @Mapping(target = "discountPriceString", expression = "java(CurrencyUtils.format(product.getPriceDiscount()))")
     ProductDto toDto(Product product);
 
-    Product toEntity(ProductUpdateDto dto);
+    Product toEntity(ProductUpdateRequest dto);
 }

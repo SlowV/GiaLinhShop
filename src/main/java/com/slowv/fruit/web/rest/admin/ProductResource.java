@@ -3,7 +3,7 @@ package com.slowv.fruit.web.rest.admin;
 import com.slowv.fruit.domain.rest.Response;
 import com.slowv.fruit.service.ProductService;
 import com.slowv.fruit.service.dto.ProductDto;
-import com.slowv.fruit.service.dto.request.ProductCreateDto;
+import com.slowv.fruit.service.dto.request.ProductCreateRequest;
 import com.slowv.fruit.service.mapper.ProductMapper;
 import lombok.AllArgsConstructor;
 import lombok.var;
@@ -25,7 +25,7 @@ public class ProductResource {
     private final ProductMapper productMapper;
 
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Response<ProductDto> createProduct(ProductCreateDto dto) {
+    public Response<ProductDto> createProduct(ProductCreateRequest dto) {
         return Response.ok(productMapper.toDto(productService.store(dto)));
     }
 

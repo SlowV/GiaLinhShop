@@ -1,6 +1,5 @@
 package com.slowv.fruit.service.impl;
 
-import com.slowv.fruit.config.ApplicationProperties;
 import com.slowv.fruit.config.MinioConfig;
 import com.slowv.fruit.domain.Product;
 import com.slowv.fruit.integration.minio.MinioService;
@@ -8,21 +7,18 @@ import com.slowv.fruit.repository.CategoryRepository;
 import com.slowv.fruit.repository.CollectionRepository;
 import com.slowv.fruit.repository.ProductRepository;
 import com.slowv.fruit.service.ProductService;
-import com.slowv.fruit.service.dto.ProductDto;
-import com.slowv.fruit.service.dto.request.ProductCreateDto;
-import com.slowv.fruit.service.dto.request.ProductUpdateDto;
+import com.slowv.fruit.service.dto.request.ProductCreateRequest;
+import com.slowv.fruit.service.dto.request.ProductUpdateRequest;
 import com.slowv.fruit.service.mapper.ProductMapper;
 import com.slowv.fruit.web.errors.BusinessException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import org.springframework.beans.BeanUtils;
-import org.springframework.core.SpringProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.util.ObjectUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -59,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(ProductUpdateDto dto) {
+    public Product update(ProductUpdateRequest dto) {
         if (Objects.isNull(dto.getId())) {
             throw new BusinessException(400, "Id product do not exist!");
         }
@@ -72,7 +68,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product store(ProductCreateDto dto) {
+    public Product store(ProductCreateRequest dto) {
         final var product = new Product();
         BeanUtils.copyProperties(dto, product);
         var images = minioService.upload(minioConfig.getBucket(), product.getCreatedDate().toEpochMilli(), dto.getImages());

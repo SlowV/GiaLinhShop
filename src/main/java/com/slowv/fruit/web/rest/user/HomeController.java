@@ -1,6 +1,8 @@
 package com.slowv.fruit.web.rest.user;
 
+import com.slowv.fruit.domain.rest.Response;
 import com.slowv.fruit.service.dto.response.HomeResponseDTO;
+import com.slowv.fruit.service.dto.response.UserPreferLocaleResponse;
 import com.slowv.fruit.service.impl.CategoryServiceImpl;
 import com.slowv.fruit.service.impl.CollectionServiceImpl;
 import com.slowv.fruit.service.impl.ProductServiceImpl;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.stream.Collectors;
 
 @RestController
@@ -48,9 +51,11 @@ public class HomeController {
         return new HomeResponseDTO(products, collections, categories);
     }
 
-    @GetMapping(value = "/products")
-    public String products(Model model) {
-        model.addAttribute("categories", categoryServiceImpl.findByStatus(1));
-        return "user/products";
+    @GetMapping("/prefer-locale")
+    public Response<UserPreferLocaleResponse> getPreferLocale(HttpServletRequest request) {
+        return Response.ok(new UserPreferLocaleResponse()
+                .setCountry("Việt Nam")
+                .setCurrency("VNĐ")
+                .setLanguage("vi"));
     }
 }

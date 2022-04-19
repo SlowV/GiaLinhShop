@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.Column;
 
 @Data
-public class ProductUpdateDto {
+public class ProductUpdateRequest {
     private Long id;
     private String name;
     private double unitPrice;

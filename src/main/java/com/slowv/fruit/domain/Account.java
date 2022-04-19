@@ -16,7 +16,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-public class Account implements Serializable {
+public class Account extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,14 +32,11 @@ public class Account implements Serializable {
     private String address;
     @Column(columnDefinition = "TEXT")
     private String introduction;
-    private long createdAt;
-    private long updatedAt;
-    private long deletedAt;
     private int status;
 
     private String uuid;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "account_roles",
             joinColumns = @JoinColumn(name = "account_id"),
@@ -47,28 +44,17 @@ public class Account implements Serializable {
     )
     Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "account")
-    @ToString.Exclude
-    private Set<Customer> customers;
-
     public Account() {
     }
 
     public Account(String email, String password, String fullName, String phoneNumber, String address, String introduction) {
-        long now = Calendar.getInstance().getTimeInMillis();
         this.email = email;
         this.password = password;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.introduction = introduction;
-        this.createdAt = now;
-        this.updatedAt = now;
-        this.status  = EAccountStatus.HOAT_DONG.getInt();
-    }
-
-    enum Status {
-        H
+        this.status = EAccountStatus.HOAT_DONG.getNumber();
     }
 
     @Override
