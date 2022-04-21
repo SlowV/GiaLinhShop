@@ -14,6 +14,8 @@ x-minio-common: &minio-common
 services:
   fruit-app:
     image: fruit-app
+    ports:
+      - 1998:1998
     networks:
       - backend
     environment:
