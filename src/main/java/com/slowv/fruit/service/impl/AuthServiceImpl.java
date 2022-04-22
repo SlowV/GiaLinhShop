@@ -29,7 +29,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthLoginResponse login(AuthLoginRequest req) {
-        final var accountExist = accountRepository.findByEmail(req.getUsername())
+        final var accountExist = accountRepository.findByEmail(req.getEmail())
                 .orElseThrow(() -> new LoginFailureException("Login failure"));
         if (isMatchPassword(accountExist.getPassword(), req.getPassword())) {
             final var authLoginResponse = new AuthLoginResponse();
