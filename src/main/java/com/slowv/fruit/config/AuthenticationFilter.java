@@ -9,7 +9,6 @@ import com.slowv.fruit.web.errors.ApiError;
 import com.slowv.fruit.web.errors.AuthenticationException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

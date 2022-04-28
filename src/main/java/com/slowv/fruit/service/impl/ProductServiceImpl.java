@@ -7,13 +7,13 @@ import com.slowv.fruit.repository.CategoryRepository;
 import com.slowv.fruit.repository.CollectionRepository;
 import com.slowv.fruit.repository.ProductRepository;
 import com.slowv.fruit.service.ProductService;
+import com.slowv.fruit.service.dto.ProductDto;
 import com.slowv.fruit.service.dto.request.ProductCreateRequest;
 import com.slowv.fruit.service.dto.request.ProductUpdateRequest;
 import com.slowv.fruit.service.mapper.ProductMapper;
 import com.slowv.fruit.web.errors.BusinessException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -40,22 +41,25 @@ public class ProductServiceImpl implements ProductService {
     private final CollectionRepository collectionRepository;
 
     @Override
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public List<ProductDto> findAll() {
+        return productRepository.findAll().stream()
+                .map(productMapper::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Page<Product> findAll(int page, int size, Direction direction) {
-        return productRepository.findAll(PageRequest.of(page, size, direction, "CreatedAt"));
+    public Page<ProductDto> findAll(int page, int size, Direction direction) {
+        return productRepository.findAll(PageRequest.of(page, size, direction, "CreatedAt"))
+                .map(productMapper::toDto);
     }
 
     @Override
-    public Product findById(long id) {
-        return productRepository.findById(id).orElse(null);
+    public ProductDto findById(long id) {
+        return productRepository.findById(id).map(productMapper::toDto).orElse(null);
     }
 
     @Override
-    public Product update(ProductUpdateRequest dto) {
+    public ProductDto update(ProductUpdateRequest dto) {
         if (Objects.isNull(dto.getId())) {
             throw new BusinessException(400, "Id product do not exist!");
         }
@@ -64,11 +68,11 @@ public class ProductServiceImpl implements ProductService {
             throw new BusinessException(400, "Id product do not exist!");
         }
         final var product = productMapper.toEntity(dto);
-        return productRepository.save(product);
+        return productMapper.toDto(productRepository.save(product));
     }
 
     @Override
-    public Product store(ProductCreateRequest dto) {
+    public ProductDto store(ProductCreateRequest dto) {
         final var product = new Product();
         BeanUtils.copyProperties(dto, product);
         var images = minioService.upload(minioConfig.getBucket(), product.getCreatedDate().toEpochMilli(), dto.getImages());
@@ -86,6 +90,6 @@ public class ProductServiceImpl implements ProductService {
             product.setCollection(collection);
         }
 
-        return productRepository.save(product);
+        return productMapper.toDto(productRepository.save(product));
     }
 }

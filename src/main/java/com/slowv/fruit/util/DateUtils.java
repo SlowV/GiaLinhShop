@@ -1,7 +1,5 @@
 package com.slowv.fruit.util;
 
-import lombok.var;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 

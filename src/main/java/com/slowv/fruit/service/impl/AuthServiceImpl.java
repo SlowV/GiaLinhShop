@@ -10,7 +10,6 @@ import com.slowv.fruit.util.JwtUtils;
 import com.slowv.fruit.web.errors.LoginFailureException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

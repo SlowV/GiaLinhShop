@@ -4,7 +4,6 @@ import com.slowv.fruit.config.MinioConfig;
 import com.slowv.fruit.integration.minio.MinioService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;

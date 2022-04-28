@@ -5,7 +5,6 @@ import com.slowv.fruit.domain.Role;
 import com.slowv.fruit.domain.enums.ERole;
 import com.slowv.fruit.repository.AccountRepository;
 import lombok.AllArgsConstructor;
-import lombok.var;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

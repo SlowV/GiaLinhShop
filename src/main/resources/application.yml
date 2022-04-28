@@ -1,4 +1,7 @@
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   main:
     allow-circular-references: true
   profiles:
@@ -8,6 +11,21 @@ spring:
       secret: ${JWT_SECRET:1ecd8e66-e5aa-42a3-b73f-ea24cc1fc088}
       expire: ${JWT_EXPIRE:86400000}
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME:quocviet.hn98@gmail.com}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+          starttls:
+            enable: true
+            required: true
 
   datasource:
     tomcat:

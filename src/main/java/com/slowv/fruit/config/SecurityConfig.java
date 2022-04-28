@@ -35,6 +35,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/user/**", "/admin/auth/login").permitAll()
+                .antMatchers("/swagger-ui.html").permitAll()
+                .antMatchers("/swagger-ui/**").permitAll()
+                .antMatchers("/v3/api-docs/**").permitAll()
                 .antMatchers("/admin/**").authenticated();
     }
 

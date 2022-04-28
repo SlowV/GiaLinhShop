@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
-@Controller
+@RestController
 @AllArgsConstructor
 @Slf4j
 @RequestMapping(value = "/admin/category")

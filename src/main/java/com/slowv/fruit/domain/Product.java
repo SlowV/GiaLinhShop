@@ -5,15 +5,11 @@ import com.slowv.fruit.domain.enums.EProductStatus;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.var;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
