@@ -1,9 +1,12 @@
 spring:
+  jpa:
+    open-in-view: true
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
   main:
     allow-circular-references: true
+    allow-bean-definition-overriding: true
   profiles:
     active: local
   security:
@@ -47,6 +50,14 @@ app:
       accessKey: ${MINIO_SERVER_ACCESS_KEY:admin}
       secretKey: ${MINIO_SERVER_SECRET_KEY:SlowV@123}
       bucket: fruit
+
+logging:
+  level:
+    root: ${LOG_LEVEL:info}
+    ru.pflb.foundation.config.RequestResponseLoggingFilter: ${LOG_LEVEL_HTTP:trace}
+    org:
+      apache.kafka.clients.NetworkClient: ERROR
+      hibernate: WARN
 
 server:
   port: 8080

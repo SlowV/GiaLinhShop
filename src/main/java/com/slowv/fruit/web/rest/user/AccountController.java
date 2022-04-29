@@ -17,14 +17,4 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 public class AccountController {
-    private final AccountServiceImpl accountServiceImpl;
-
-    private final CategoryServiceImpl categoryServiceImpl;
-
-    @PostMapping("/login")
-    public String login(Model model){
-        model.addAttribute("categories", categoryServiceImpl.findByStatus(1));
-        model.addAttribute("account", new Account());
-        return "user/login";
-    }
 }

@@ -5,6 +5,7 @@ import com.slowv.fruit.domain.enums.EProductStatus;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -17,6 +18,7 @@ import java.util.Set;
 @Entity
 @Getter
 @Setter
+@RedisHash
 public class Product extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,13 +37,16 @@ public class Product extends AbstractAuditingEntity implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
+    @ToString.Exclude
     private Category category;
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
+    @ToString.Exclude
     private Collection collection;
 
     @OneToMany(mappedBy = "product")
     @JsonIgnore
+    @ToString.Exclude
     private Set<OrderDetail> orderDetails = new HashSet<>();
 
     public Product() {

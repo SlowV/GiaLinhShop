@@ -2,6 +2,7 @@ package com.slowv.fruit.domain;
 
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,6 +12,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @Entity
+@RedisHash
 public class OrderDetail implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

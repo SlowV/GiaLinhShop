@@ -2,16 +2,18 @@ package com.slowv.fruit.domain;
 
 import com.slowv.fruit.domain.enums.ECategoryStatus;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.hibernate.Hibernate;
+import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.Set;
 
-@EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
+@RedisHash
 public class Collection extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,5 +49,19 @@ public class Collection extends AbstractAuditingEntity implements Serializable {
         this.status = ECategoryStatus.HOAT_DONG.getNumber();
         this.isParent = isParent;
         this.collectionParentId = collectionParentId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Collection that = (Collection) o;
+
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return 177877382;
     }
 }

@@ -2,9 +2,11 @@ package com.slowv.fruit.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.redis.core.RedisHash;
 
 @Getter
 @Setter
+@RedisHash
 public class CartItem {
     private Product product;
     private int quantity;

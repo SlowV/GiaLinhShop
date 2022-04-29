@@ -3,6 +3,7 @@ package com.slowv.fruit.domain;
 import com.slowv.fruit.domain.enums.EAccountStatus;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
+@RedisHash
 public class Account extends AbstractAuditingEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
