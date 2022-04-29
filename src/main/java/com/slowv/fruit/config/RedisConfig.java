@@ -24,5 +24,4 @@ public class RedisConfig {
         return new LettuceConnectionFactory(redisConfig);
     }
 
-
 }

@@ -42,7 +42,7 @@ services:
 
   redis-service:
     image: redis
-    container_name: redis-service
+    container_name: redis
     ports:
       - "6379:6379"
     volumes:
@@ -101,6 +101,8 @@ networks:
 
 volumes:
   postgres_volume:
+    driver: local
+  redis_volume:
     driver: local
   data1:
     driver: local

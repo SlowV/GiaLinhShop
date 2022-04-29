@@ -1,5 +1,6 @@
 package com.slowv.fruit.util;
 
+import com.slowv.fruit.constant.TokenType;
 import com.slowv.fruit.web.errors.AuthenticationException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -9,7 +10,7 @@ import java.util.Date;
 public class JwtUtils {
     private JwtUtils(){}
 
-    public static String generateToken(String jwtSecret, String uuidSubject, int jwtExpiration) {
+    public static String generateToken(TokenType tokenType, String jwtSecret, String uuidSubject, int jwtExpiration) {
         return Jwts.builder()
                 .setSubject(uuidSubject)
                 .setIssuedAt(new Date())

@@ -16,4 +16,10 @@ public class ApplicationProperties {
 
     @Value("${spring.security.jwt.expire}")
     int jwtExpiration;
+
+    @Value("${spring.security.reset-token.expire}")
+    int resetTokenExpire;
+
+    @Value("${spring.security.reset-token.link}")
+    String resetPasswordLink;
 }

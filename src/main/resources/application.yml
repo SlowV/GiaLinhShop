@@ -10,12 +10,15 @@ spring:
     jwt:
       secret: ${JWT_SECRET:1ecd8e66-e5aa-42a3-b73f-ea24cc1fc088}
       expire: ${JWT_EXPIRE:86400000}
+    reset-token:
+      expire: ${RESET_TOKEN_EXPIRE:90000}
+      link: ${RESET_PASSWORD_LINK:http://localhost:4200/reset-password}
 
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${MAIL_USERNAME:quocviet.hn98@gmail.com}
-    password: ${MAIL_PASSWORD:}
+    username: ${MAIL_USERNAME:sales.fruit.vh@gmail.com}
+    password: ${MAIL_PASSWORD:!Viet1998}
     properties:
       mail:
         smtp:
