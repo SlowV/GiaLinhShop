@@ -1,4 +1,4 @@
-package com.slowv.fruit.web.rest.admin;
+package com.slowv.fruit.web.rest.admin.impl;
 
 import com.slowv.fruit.domain.Category;
 import com.slowv.fruit.service.impl.CategoryServiceImpl;
