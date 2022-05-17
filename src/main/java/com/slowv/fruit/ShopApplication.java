@@ -14,22 +14,22 @@ import java.net.UnknownHostException;
 public class ShopApplication {
     private static final Logger log = LoggerFactory.getLogger(ShopApplication.class);
     public static void main(String[] args) {
-        SpringApplication app = new SpringApplication(ShopApplication.class);
-        Environment env = app.run(args).getEnvironment();
+        final var app = new SpringApplication(ShopApplication.class);
+        final var env = app.run(args).getEnvironment();
         logApplicationStartup(env);
     }
 
     private static void logApplicationStartup(Environment env) {
-        String protocol = "http";
+        var protocol = "http";
         if (env.getProperty("server.ssl.key-store") != null) {
             protocol = "https";
         }
-        String serverPort = env.getProperty("server.port");
-        String contextPath = env.getProperty("server.servlet.context-path");
+        final var serverPort = env.getProperty("server.port");
+        var contextPath = env.getProperty("server.servlet.context-path");
         if (StringUtils.isBlank(contextPath)) {
             contextPath = "/";
         }
-        String hostAddress = "localhost";
+        var hostAddress = "localhost";
         try {
             hostAddress = InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException e) {
